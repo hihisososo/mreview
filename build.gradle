@@ -74,6 +74,7 @@ dependencies {
 
             "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
 
+    implementation group : 'net.coobird', name: 'thumbnailator', version: '0.4.12'
 }
 
 

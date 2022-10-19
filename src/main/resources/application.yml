@@ -4,6 +4,12 @@ spring:
     url: jdbc:h2:file:./h2
     username: sa
     password:
+  servlet:
+    multipart:
+      enabled: true
+      location: C:\\upload
+      max-request-size: 30MB
+      max-file-size: 10MB
 
   jpa:
     hibernate:

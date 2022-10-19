@@ -2,10 +2,8 @@ package org.zerock.mreview.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Builder
@@ -13,7 +11,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @ToString
-public class Movie extends BaseEntity{
+public class Movie extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

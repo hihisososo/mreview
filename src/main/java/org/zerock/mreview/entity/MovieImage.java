@@ -5,12 +5,14 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Embeddable
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@ToString(exclude = "movie")
-public class MovieImage {
+@ToString(exclude = "movie") //연관 관계시 항상 주의
+public class MovieImage  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inum;
@@ -21,6 +23,8 @@ public class MovieImage {
 
     private String path;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //무조건 lazy로
     private Movie movie;
+
+
 }
