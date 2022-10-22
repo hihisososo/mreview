@@ -10,6 +10,7 @@ import org.zerock.mreview.entity.MovieImage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public interface MovieService {
@@ -36,7 +37,7 @@ public interface MovieService {
         }).collect(Collectors.toList());
 
         movieDTO.setImageDTOList(movieImageDTOList);
-        movieDTO.setAvg(avg);
+        Optional.ofNullable(avg).ifPresent(d -> movieDTO.setAvg(d));
         movieDTO.setReviewCnt(reviewCnt.intValue());
 
 
