@@ -52,8 +52,8 @@ public class MovieServiceImpl implements MovieService{
 
         Pageable pageable = requestDTO.getPageable(Sort.by("mno").descending());
 
-        //Page<Object[]> result = movieRepository.getListPage(pageable);
-        Page<Object[]> result = movieRepository.getListPageByJPQL(pageable);
+        Page<Object[]> result = movieRepository.getListPage(pageable);
+//        Page<Object[]> result = movieRepository.getListPageByJPQL(pageable);
 
         log.info("==============================================");
         result.getContent().forEach(arr -> {

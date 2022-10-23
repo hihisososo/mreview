@@ -49,6 +49,7 @@ public class UploadController {
             String originalName = uploadFile.getOriginalFilename();
             String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
+            log.info("fileName: " + originalName);
             log.info("fileName: " + fileName);
             //날짜 폴더 생성
             String folderPath = makeFolder();
@@ -79,6 +80,14 @@ public class UploadController {
 
         }//end for
         return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
+    }
+
+    @PostMapping("/uploadAjax2")
+    public ResponseEntity<String> uploadFile2(MultipartFile[] uploadFiles) throws IOException {
+        for (MultipartFile u : uploadFiles) {
+            u.transferTo(new File(u.getOriginalFilename()));
+        }
+        return new ResponseEntity<>("dd", HttpStatus.OK);
     }
 
 
