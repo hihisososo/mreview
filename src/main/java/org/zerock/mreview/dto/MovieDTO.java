@@ -23,4 +23,12 @@ public class MovieDTO {
     @Builder.Default
     private List<MovieImageDTO> imageDTOList = new ArrayList<>();
 
+    private double avg;
+
+    private int reviewCnt;
+
+    private LocalDateTime regDate;
+
+    private LocalDateTime modDate;
+
 }

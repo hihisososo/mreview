@@ -25,4 +25,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @EntityGraph(attributePaths = {"member"}, type = EntityGraph.EntityGraphType.FETCH)
     Page<Review> findAll(Pageable pageable);
 
+    @Modifying
+    @Query("delete from Review mr where mr.movie.mno = :mno")
+    void deleteByMno(long mno);
 }

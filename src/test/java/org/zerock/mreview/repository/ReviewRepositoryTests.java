@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
-import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mreview.entity.Member;
 import org.zerock.mreview.entity.Movie;
 import org.zerock.mreview.entity.Review;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -73,6 +73,12 @@ public class ReviewRepositoryTests {
 
         result.getContent().forEach(review -> System.out.println(review));
 
+    }
+
+    @Test
+    @Transactional
+    public void testRemoveMno() {
+        reviewRepository.deleteByMno(1);
     }
 
 }

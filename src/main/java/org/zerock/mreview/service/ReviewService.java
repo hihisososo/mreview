@@ -9,16 +9,12 @@ import java.util.List;
 
 public interface ReviewService {
 
-    //영화의 모든 영화리뷰를 가져온다.
     List<ReviewDTO> getListOfMovie(Long mno);
 
-    //영화 리뷰를 추가
     Long register(ReviewDTO movieReviewDTO);
 
-    //특정한 영화리뷰 수정
     void modify(ReviewDTO movieReviewDTO);
 
-    //영화 리뷰 삭제
     void remove(Long reviewnum);
 
     default Review dtoToEntity(ReviewDTO movieReviewDTO){

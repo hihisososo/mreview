@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{common/layout}">
+        xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, inital-scale=1.0"/>
 </head>
 <body>
+<h1>Movie List Page
+  <br>
+<span>
+  <a th:href="@{/movie/register}">
+    <button type="button" class="btn btn-primary">등록</button>
+  </a>
 
-<div layout:fragment="contents">
-  <div class="nav justify-content-end px-5 pt-2">
-    <button class="btn btn-info text-white" id="write-board" type="button"
-            onclick="location.href='/board/write'">
-      Contents Write
-    </button>
-  </div>
-  <hr/>
-  <div>
-    <table class="table" border="1">
-      <thead class="table-dark"></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</div>
+</span>
+  </br>
+</h1>
+
+<form action="/movie/list" method="get" id="searchForm">
+  <input type="hidden" name="page" value="1">
+</form>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title & Picture</th>
+    <th scope="col">Review Count</th>
+    <th scope="col">AVG Rating</th>
+    <th scope="col">Regdate</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr th:each="dto : ${result.dtoList}">
+      <th scope="row">
+        <a th:href="@{/movie/read(mno = ${dto.mno}, page= ${result.page})}">[[${dto.mno}]]</a>
+      </th>
+      <td>
+        <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}" th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
+        [[${dto.title}]]
+      </td>
+      <td><b>[[${dto.reviewCnt}]]</b></td>
+      <td><b>[[${dto.avg}]]</b></td>
+      <td><b>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</b></td>
+    </tr>
+  </tbody>
+
+</table>
+
+<ul>
+    <a th:if="${result.prev}" class="page-link" th:href="@{/movie/list(page=${result.start-1})}" tabindex="-1">Previous</a>
+    <a style="margin-right: 5px;" th:each="page: ${result.pageList}" class="page-link" th:href="@{/movie/list(page=${page})}">[[${page}]]</a>
+    <a th:if="${result.next}" class="page-link" th:href="@{/movie/list(page=${result.end+1})}" >Next</a>
+</ul>
+
+<script th:inline="javascript"></script>
 </body>
 </html>
