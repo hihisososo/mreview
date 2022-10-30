@@ -67,8 +67,7 @@ public class UploadController {
 
         Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);
 
-        resultDTOList.add(new UploadResultDTO(filename, uuid, folderPath,
-            URLEncoder.encode(folderPath + "/" + uuid + "_" + filename, "UTF-8")));
+        resultDTOList.add(new UploadResultDTO(filename, uuid, folderPath));
       } catch (IOException e) {
         e.printStackTrace();
       }
