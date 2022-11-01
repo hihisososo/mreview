@@ -20,26 +20,24 @@
 <form th:action="@{/movie/register}" th:method="post">
     <h3>Movie Read Page</h3>
     <h5>Title</h5>
-    <input name="title" type="text" th:value="${dto.title}" readonly>
+    <input name="title" type="text">
     <h5>Review Count</h5>
-    <input type="text" th:value="${dto.reviewCnt}" readonly>
+    <input type="text">
     <h5>Avg</h5>
-    <input type="text" th:value="${dto.avg}" readonly>
+    <input type="text">
     <div class="uploadResult">
-        <ul>
-            <li th:each="movieImage: ${dto.imageDTOList}" th:data-file="${movieImage.getThumbnailURL()}">
-                <img th:if="${movieImage.path != null}" th:src="|/display?fileName=${movieImage.getThumbnailURL()}|">
-            </li>
+        <ul id="imageList">
+
         </ul>
-        <button type="button">Review Count <span>[[${dto.reviewCnt}]]</span></button>
+        <button type="button">Review Count <span></span></button>
         <button type="button" class="addReviewBtn">Review Register</button>
         <div class="list-group reviewList"></div>
     </div>
 
 </form>
 <form th:action="@{/movie/remove}" method="POST">
-    <input type="hidden" name="mno" th:value="${dto.mno}">
-    <button type="submit" class="btn btn-primary">영화 삭제</button>
+    <input type="hidden" id="mno" name="mno" th:value="${mno}">
+    <button type="button" class="btn btn-primary">영화 삭제</button>
 </form>
 <div class="reviewModal modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -113,8 +111,23 @@
 </body>
 <script>
     $(document).ready(function (e) {
+        function drawList() {
+            $.ajax({
+                url:'/movies/'+ $('#mno').val(),
+                type:"GET",
+                contentType:"application/json; charset=utf-8",
+                dataType:"text",
+                success: function(result){
+                    console.log(result);
+                    result = JSON.parse(result);
+                    result.
+                }
+            })
+        }
+
+        drawList();
         var grade = 0;
-        var mno = [[${dto.mno}]];
+        var mno = [[${mno}]];
 
         $('.starrr').starrr({
             rating: grade,
@@ -181,7 +194,7 @@
             console.log(data);
 
             $.ajax({
-                url:'/reviews/'+mno,
+                url:'/reviews/'+ mno,
                 type:"POST",
                 data:JSON.stringify(data),
                 contentType:"application/json; charset=utf-8",

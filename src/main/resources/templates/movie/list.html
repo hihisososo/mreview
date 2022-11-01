@@ -6,59 +6,90 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, inital-scale=1.0"/>
 </head>
 <body>
 <h1>Movie List Page
-  <br>
-<span>
+    <br>
+    <span>
   <a th:href="@{/movie/register}">
     <button type="button" class="btn btn-primary">등록</button>
   </a>
 
 </span>
-  </br>
+    </br>
 </h1>
 
-<form action="/movie/list" method="get" id="searchForm">
-  <input type="hidden" name="page" value="1">
+<form th:action="@{/movie/list}" method="get" id="searchForm">
+    <input type="hidden" id="page" name="page" th:value="${page.page}">
 </form>
 
 <table class="table">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Title & Picture</th>
-    <th scope="col">Review Count</th>
-    <th scope="col">AVG Rating</th>
-    <th scope="col">Regdate</th>
-  </tr>
-  </thead>
-  <tbody>
-    <tr th:each="dto : ${result.dtoList}">
-      <th scope="row">
-        <a th:href="@{/movie/read(mno = ${dto.mno}, page= ${result.page})}">[[${dto.mno}]]</a>
-      </th>
-      <td>
-        <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}" th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
-        [[${dto.title}]]
-      </td>
-      <td><b>[[${dto.reviewCnt}]]</b></td>
-      <td><b>[[${dto.avg}]]</b></td>
-      <td><b>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</b></td>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title & Picture</th>
+        <th scope="col">Review Count</th>
+        <th scope="col">AVG Rating</th>
+        <th scope="col">Regdate</th>
     </tr>
-  </tbody>
+    </thead>
+    <tbody id="movies">
+
+    </tbody>
 
 </table>
 
-<ul>
-    <a th:if="${result.prev}" class="page-link" th:href="@{/movie/list(page=${result.start-1})}" tabindex="-1">Previous</a>
-    <a style="margin-right: 5px;" th:each="page: ${result.pageList}" class="page-link" th:href="@{/movie/list(page=${page})}">[[${page}]]</a>
-    <a th:if="${result.next}" class="page-link" th:href="@{/movie/list(page=${result.end+1})}" >Next</a>
-</ul>
+<ul id="paging">
 
-<script th:inline="javascript"></script>
+</ul>
+<script th:inline="javascript">
+  $(document).ready(function (){
+    let movies = new Movies();
+    movies.drawList();
+  });
+  class Movies{
+    drawList(){
+      $.ajax({
+        url:'/movies?page='+ $('#page').val(),
+        type:"GET",
+        contentType:"application/json; charset=utf-8",
+        dataType:"text",
+        success: function(result){
+          console.log(result);
+          result = JSON.parse(result);
+          let html = "";
+          result.list.forEach(function (movie){
+            html += "<tr>";
+            html += "<th><a href='/movie/read?mno=" + movie.mno+"'</a>" + movie.mno + "</th>";
+            html += "<td><img src='" + movie.imageDTOList[0] + "'>" + movie.title + "</td>";
+            html += "<td>" + movie.reviewCnt+"</td>";
+            html += "<td>" + movie.avg+"</td>";
+            html += "<td>" + movie.regDate+"</td>";
+            html += "</tr>";
+          });
+          $('#movies').html(html);
+
+          let pageHtml = "";
+          if(result.prev == 'true') {
+            pageHtml += "<a className='page-link' href='/movie/list?page=" + result.start -1 + "'>Previous</a>";
+          }
+          result.page.pageList.forEach(function (page){
+            pageHtml += "<a style='margin-right: 5px;' className='page-link' href='/movie/list?page=" + page + "'>" + page + "</a>";
+          });
+          if(result.next == 'true') {
+            pageHtml += "<a className='page-link' href='/movie/list?page=" + result.end +1 + "'>Next</a>";
+          }
+          $('#paging').html(pageHtml)
+        }
+      })
+    }
+
+  }
+
+</script>
 </body>
 </html>
