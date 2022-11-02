@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, inital-scale=1.0"/>
@@ -65,7 +65,7 @@
           result.list.forEach(function (movie){
             html += "<tr>";
             html += "<th><a href='/movie/read?mno=" + movie.mno+"'</a>" + movie.mno + "</th>";
-            html += "<td><img src='" + movie.imageDTOList[0] + "'>" + movie.title + "</td>";
+            html += "<td><img src='/display?fileName=" + movie.imageDTOList[0].thumbnailURL + "'>" + movie.title + "</td>";
             html += "<td>" + movie.reviewCnt+"</td>";
             html += "<td>" + movie.avg+"</td>";
             html += "<td>" + movie.regDate+"</td>";

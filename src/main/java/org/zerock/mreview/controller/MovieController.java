@@ -56,15 +56,4 @@ public class MovieController {
     model.addAttribute("mno", mno);
   }
 
-  @PostMapping("/remove")
-  public String remove(long mno) {
-
-    log.info("mno:" + mno);
-
-     movieService.remove(mno);
-
-    return "redirect:/movie/list";
-  }
-
-
 }

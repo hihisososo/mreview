@@ -27,10 +27,7 @@ public interface MovieService {
 
     List<MovieImageDTO> movieImageDTOList = movieImages.stream()
             .map(movieImage -> {
-              return MovieImageDTO.builder().imgName(movieImage.getImgName())
-                      .path(movieImage.getPath())
-                      .uuid(movieImage.getUuid())
-                      .build();
+              return new MovieImageDTO(movieImage.getUuid(), movieImage.getImgName(),  movieImage.getPath());
             }).collect(Collectors.toList());
     movieDTO.setImageDTOList(movieImageDTOList);
     movieDTO.setAvg(avg);

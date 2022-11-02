@@ -40,7 +40,7 @@ public class MovieRestController {
     }
 
     @DeleteMapping("/{mno}")
-    public ResponseEntity<Long> remove(long mno) {
+    public ResponseEntity<Long> remove(@PathVariable long mno) {
 
         log.info("mno:" + mno);
         movieService.remove(mno);
