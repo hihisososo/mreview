@@ -14,9 +14,8 @@ import java.util.Set;
 @Getter
 @ToString
 public class ClubMember extends BaseEntity{
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
 
+    @Id
     private String email;
 
     private String password;

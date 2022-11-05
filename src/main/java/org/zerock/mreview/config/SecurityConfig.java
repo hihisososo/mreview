@@ -24,14 +24,14 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+/*    @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.withUsername("user1")
                 .password("$2a$10$zC4UZD7W8XYnRSmzVxSlLuYJwo/Qtmn/5A0hzCsoFkhO.7Qw5jvCe")
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
-    }
+    }*/
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -42,7 +42,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
+                //.antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/sample/all").permitAll()
                 .antMatchers("/sample/member").hasRole("USER");
 

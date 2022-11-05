@@ -89,14 +89,13 @@ public class MovieServiceImpl implements MovieService {
         return entitiesToDTO(movie, movieImageList, avg, reviewCnt);
     }
 
-    @Transactional
     @Override
     public void remove(long mno) {
         //리뷰 먼저 삭제
-        reviewRepository.deleteByMno(mno);
+        //reviewRepository.deleteByMno(mno);
         
         //이미지 파일 및 이미지 삭제
-        Movie movie = Movie.builder()
+        /*Movie movie = Movie.builder()
                 .mno(mno).build();
         List<MovieImage> images = imageRepository.findAllByMovie(movie);
         //파일 삭제
@@ -109,10 +108,10 @@ public class MovieServiceImpl implements MovieService {
 
             result = thumbnail.delete();
         });
-        imageRepository.deleteByMno(mno);
+        imageRepository.deleteByMno(mno);*/
         
         //영화 삭제
-        movieRepository.deleteById(mno);
+        movieRepository.softDelete(mno);
 
     }
 

@@ -78,8 +78,8 @@ dependencies {
 
     implementation group : 'net.coobird', name: 'thumbnailator', version: '0.4.12'
 
-    compileOnly group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
-    compileOnly group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
+    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
 }
 
 

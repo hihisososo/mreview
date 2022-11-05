@@ -19,4 +19,6 @@ public class Movie extends BaseEntity {
 
     private String title;
 
+    private boolean deleted; //삭제 플래그
+
 }

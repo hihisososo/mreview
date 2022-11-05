@@ -1,6 +1,7 @@
 package org.zerock.mreview.entity;
 
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 

@@ -29,4 +29,4 @@ spring:
       path: /h2-console
 
 server:
-  port: 9090
+  port: 8080

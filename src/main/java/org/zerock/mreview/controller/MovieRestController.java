@@ -1,8 +1,5 @@
 package org.zerock.mreview.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -28,7 +25,6 @@ public class MovieRestController {
 
     @PostMapping("")
     public ResponseEntity<Long> register(MovieDTO movieDTO) {
-        log.info("movieDTO:" + movieDTO);
         Long mno = movieService.register(movieDTO);
         return new ResponseEntity<Long>(mno, HttpStatus.OK);
     }
@@ -41,12 +37,8 @@ public class MovieRestController {
 
     @DeleteMapping("/{mno}")
     public ResponseEntity<Long> remove(@PathVariable long mno) {
-
-        log.info("mno:" + mno);
         movieService.remove(mno);
-
         return new ResponseEntity(mno, HttpStatus.OK);
     }
-
 
 }
