@@ -26,6 +26,7 @@ public class ClubMember extends BaseEntity{
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private Set<ClubMemberRole> roleSet = new HashSet<>();
 
     public void addMemberRole(ClubMemberRole clubMemberRole){

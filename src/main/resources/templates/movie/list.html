@@ -42,10 +42,10 @@
     </tbody>
 
 </table>
-
-<ul id="paging">
-
-</ul>
+<nav aria-label="Page navigation example">
+    <ul id="paging" class="pagination justify-content-center">
+    </ul>
+</nav>
 <script th:inline="javascript">
   $(document).ready(function (){
     let movies = new Movies();
@@ -74,14 +74,14 @@
           $('#movies').html(html);
 
           let pageHtml = "";
-          if(result.prev == 'true') {
-            pageHtml += "<a className='page-link' href='/movie/list?page=" + result.start -1 + "'>Previous</a>";
+          if(result.page.prev == true) {
+            pageHtml += "<li class='page-item'><a class='page-link' href='/movie/list?page=" + (result.page.start -1) + "'>Previous</a></li>";
           }
           result.page.pageList.forEach(function (page){
-            pageHtml += "<a style='margin-right: 5px;' className='page-link' href='/movie/list?page=" + page + "'>" + page + "</a>";
+            pageHtml += "<li class=\"page-item\"><a class='page-link' class='page-link' href='/movie/list?page=" + page + "'>" + page + "</a></li>";
           });
-          if(result.next == 'true') {
-            pageHtml += "<a className='page-link' href='/movie/list?page=" + result.end +1 + "'>Next</a>";
+          if(result.page.next == true) {
+            pageHtml += "<li class='page-item'><a class='page-link' href='/movie/list?page=" + (result.page.end +1) + "'>Next</a></li>";
           }
           $('#paging').html(pageHtml)
         }
