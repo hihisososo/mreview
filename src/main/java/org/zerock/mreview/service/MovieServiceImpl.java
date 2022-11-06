@@ -89,6 +89,7 @@ public class MovieServiceImpl implements MovieService {
         return entitiesToDTO(movie, movieImageList, avg, reviewCnt);
     }
 
+    @Transactional
     @Override
     public void remove(long mno) {
         //리뷰 먼저 삭제
