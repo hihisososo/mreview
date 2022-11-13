@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.zerock.mreview.security.dto.ClubLoginSuccessHandler;
-import org.zerock.mreview.security.service.ClubOAuth2UserDetailsService;
 import org.zerock.mreview.security.service.ClubUserDetailService;
 
 @EnableWebSecurity

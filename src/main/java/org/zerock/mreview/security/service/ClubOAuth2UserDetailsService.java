@@ -45,15 +45,12 @@ public class ClubOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         String email = null;
 
-        if (clientName.equals("Google")) {
+        if (clientName.equals("" +
+                "Google")) {
             email = oAuth2User.getAttribute("email");
         }
 
         log.info("EMAIL: " + email);
-
-        /*ClubMember member = saveSocialMember(email);
-
-        return oAuth2User;*/
 
         ClubMember member = saveSocialMember(email);
 
